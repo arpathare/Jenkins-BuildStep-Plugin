@@ -1,1 +1,1 @@
-# Jenkins-BuildStep-Plugin
+This repository provides Jenkins Build Step Plugin with some complex operations like exposing environment variables and performing dynamic actions while configuration like loading REST api data in Selection box.

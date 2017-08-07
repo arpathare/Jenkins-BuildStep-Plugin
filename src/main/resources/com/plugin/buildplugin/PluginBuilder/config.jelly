@@ -1,0 +1,38 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:html="jelly:html" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:c="/lib/credentials">
+  <!--
+    This jelly script is used for per-project configuration.
+
+    See global.jelly for a general discussion about jelly script.
+  -->
+
+  <!--
+    Creates a text field that shows the value of the "name" property.
+    When submitted, it will be passed to the corresponding constructor parameter.
+  -->
+  <j:set var="editorId" value="${descriptor.createEditorId()}" />
+  <st:bind var="backend" value="${descriptor}"/>
+  <f:entry title="Select Offer From Amazon" field="getOffer">
+    <f:select id="offer-${editorId}" onfocus="getOffers(this.id)"/>
+  </f:entry>
+  <f:validateButton title="Get Amazon Offers" progress="Fetching Offers..."  method="getAmazonOffers"/>
+  
+  <script>
+      function getOffers(id){
+          backend.fetchOffers(function(obj)
+            {
+              document.getElementById(id).innerHTML=null; 
+              var sel = document.getElementById(id);
+              Object.keys(obj.responseObject()).forEach(function(key){      
+                  var opt = document.createElement('option');
+                  var value = obj.responseObject()[key];
+                  var html = key;
+                  opt.innerHTML = html;
+                  opt.value = key;
+                  sel.appendChild(opt);
+              });
+            });
+      
+      }
+  </script>
+</j:jelly>

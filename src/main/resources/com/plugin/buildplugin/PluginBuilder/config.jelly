@@ -32,7 +32,6 @@
                   sel.appendChild(opt);
               });
             });
-      
       }
   </script>
 </j:jelly>
